@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Sigma",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

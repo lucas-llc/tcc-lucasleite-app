@@ -1,0 +1,7 @@
+{
+  "name": "Sigma",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
