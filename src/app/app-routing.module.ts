@@ -4,8 +4,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./Pages/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'signature-form',
+    loadChildren: () => import('./Pages/signature-form/signature-form.module').then( m => m.SignatureFormPageModule)
   }
+
 ];
 @NgModule({
   imports: [
