@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
-import { SignatureService } from 'src/app/services/signature/signature.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
-  selector: 'app-signature-form',
-  templateUrl: './signature-form.page.html',
-  styleUrls: ['./signature-form.page.scss'],
+  selector: 'app-user-form',
+  templateUrl: './user-form.page.html',
+  styleUrls: ['./user-form.page.scss'],
 })
-export class SignatureFormPage implements OnInit {
-  signatureForm: FormGroup;
+export class UserFormPage implements OnInit {
+  userForm: FormGroup;
   constructor(
-    public modalController: ModalController,
     public formBuilder: FormBuilder,
-    public ss: SignatureService,
+    public us: UserService,
     public loadingController: LoadingController,
-    public util: UtilService
+    public util: UtilService,
+    public modalController: ModalController
   ) {
-    this.signatureForm = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
       id: [''],
-      name: ['', Validators.compose([Validators.required])],
-      description: [''],
-      price: [0],
-      startDate: [null],
-      frequency: [''],
-      status: ['ATIVO'],
-      sendPush: [false],
-      currency: [''],
-      iconImage: ['']
+      email: ['', Validators.compose([Validators.required])],
+      name: [''],
+      lastName: [''],
+      password: [''],
+      repeatPassword: ['']
     });
   }
 
@@ -36,11 +32,11 @@ export class SignatureFormPage implements OnInit {
   }
 
   async save() {
-    if (this.signatureForm.valid) {
+    if (this.userForm.valid) {
       const loading = await this.loadingController.create();
       await loading.present();
-      if (this.signatureForm.value.id > 0) {
-        this.ss.update(this.signatureForm.getRawValue()).subscribe({
+      if (this.userForm.value.id > 0) {
+        this.us.update(this.userForm.getRawValue()).subscribe({
           next: () => {
             loading.dismiss();
             this.dismissModal(true);
@@ -51,7 +47,7 @@ export class SignatureFormPage implements OnInit {
           },
         });
       } else {
-        this.ss.create(this.signatureForm.getRawValue()).subscribe({
+        this.us.create(this.userForm.getRawValue()).subscribe({
           next: () => {
             loading.dismiss();
             this.dismissModal(true);

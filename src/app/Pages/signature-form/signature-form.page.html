@@ -6,9 +6,61 @@
       </ion-button>
     </ion-buttons>
     <ion-title>Assinatura</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        Salvar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="signatureForm">
+    <ion-list>
+      <ion-item color="light">
+        <ion-label position="floating">Nome<ion-text color="danger">&nbsp;*</ion-text></ion-label>
+        <ion-input formControlName="name" required></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Descrição</ion-label>
+        <ion-input formControlName="description"></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Preço</ion-label>
+        <ion-input type="number" formControlName="price"></ion-input>
+      </ion-item>
+      <ion-item button="true" id="open-date-input" lines="full" detail="false" color="light">
+        <ion-label position="stacked">Data do primeiro pagamento</ion-label>
+        <h6 *ngIf="signatureForm?.value?.startDate">{{signatureForm.value?.startDate | date:'shortDate':'UTC': 'pt-BR'}}</h6>
+        <ion-note *ngIf="!signatureForm?.value?.startDate">Selecione</ion-note>
+        <ion-popover #popover trigger="open-date-input" [size]="'cover'" >
+          <ng-template>
+            <ion-datetime #datetime presentation="date" [size]="'cover'" formControlName="startDate" (ionChange)="popover.dismiss()">
+              <ion-buttons slot="buttons">
+                <ion-button (click)="datetime?.reset(); signatureForm.controls['startDate'].setValue(null); popover?.dismiss()">Cancelar</ion-button>
+                <ion-button (click)="datetime?.confirm(); popover?.dismiss()">Selecionar</ion-button>
+              </ion-buttons>
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Frequência</ion-label>
+        <ion-select placeholder="Selecione a frequência de pagamento" formControlName="frequency">
+          <ion-select-option value="MENSAL">Mensal</ion-select-option>
+          <ion-select-option value="BIMESTRAL">Bimestral</ion-select-option>
+          <ion-select-option value="TRIMESTRAL">Trimestral</ion-select-option>
+          <ion-select-option value="SEMESTRAL">Semestral</ion-select-option>
+          <ion-select-option value="ANUAL">Anual</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Moeda</ion-label>
+        <ion-select placeholder="Selecione a moeda" formControlName="currency">
+          <ion-select-option value="REAL">Real</ion-select-option>
+          <ion-select-option value="DOLAR">Dólar</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </form>
 </ion-content>

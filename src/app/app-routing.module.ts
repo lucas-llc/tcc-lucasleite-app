@@ -9,6 +9,30 @@ const routes: Routes = [
   {
     path: 'signature-form',
     loadChildren: () => import('./Pages/signature-form/signature-form.module').then( m => m.SignatureFormPageModule)
+  },
+  {
+    path: 'signature-form/:id',
+    loadChildren: () => import('./Pages/signature-form/signature-form.module').then( m => m.SignatureFormPageModule)
+  },
+  {
+    path: 'user-form',
+    loadChildren: () => import('./Pages/user-form/user-form.module').then( m => m.UserFormPageModule)
+  },
+  {
+    path: 'user-form/:id',
+    loadChildren: () => import('./Pages/user-form/user-form.module').then( m => m.UserFormPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./Pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'signature-detail/:id',
+    loadChildren: () => import('./Pages/signature-detail/signature-detail.module').then( m => m.SignatureDetailPageModule)
+  },
+  {
+    path: 'forgot',
+    loadChildren: () => import('./Pages/forgot/forgot.module').then( m => m.ForgotPageModule)
   }
 
 ];

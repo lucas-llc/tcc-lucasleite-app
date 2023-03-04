@@ -3,6 +3,11 @@
     <ion-title>
       Perfil
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showActionSheet()">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,5 +17,20 @@
       <ion-title size="large">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <ion-list>
+    <div class="profile-item">
+      <h2 class="profile-name dark">{{util.loggedUser?.name}}</h2>
+      <div class="profile-info">{{util.loggedUser?.email}}</div>
+    </div>
+  </ion-list>
+  <div class="ion-text-center">
+    <ion-button size="small" fill="clear" type="button" (click)="util.navWithParams(null, 'about')">
+      Sobre
+    </ion-button>
+  </div>
+  <div class="ion-text-center ion-margin">
+    <ion-button (click)="us.logout()">
+      Sair
+    </ion-button>
+  </div>
 </ion-content>

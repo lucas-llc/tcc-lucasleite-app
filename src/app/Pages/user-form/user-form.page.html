@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        Fechar
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        Salvar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="userForm">
+    <ion-list>
+      <ion-item color="light">
+        <ion-label position="floating">Nome<ion-text color="danger">&nbsp;*</ion-text></ion-label>
+        <ion-input formControlName="name" required></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Sobrenome<ion-text color="danger">&nbsp;*</ion-text></ion-label>
+        <ion-input formControlName="lastName" required></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Confirme a senha</ion-label>
+        <ion-input type="password" formControlName="repeatPassword"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

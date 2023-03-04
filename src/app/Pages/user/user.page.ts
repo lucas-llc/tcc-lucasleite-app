@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
   selector: 'app-user',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class UserPage {
 
-  constructor() {}
+  constructor(
+    public util: UtilService,
+    public us: UserService
+  ) {
+
+  }
+
+  showActionSheet(){
+  }
 
 }

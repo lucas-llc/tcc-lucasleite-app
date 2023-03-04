@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/signature"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhe da assinatura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Assinatura</ion-card-subtitle>
+      <ion-card-title>{{selectedSignature?.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{selectedSignature?.startDate | date:'short':'UTC':'pt-BR'}}
+      </p>
+      <p>
+        {{selectedSignature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{selectedSignature?.price}}
+      </p>
+      {{selectedSignature?.description}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

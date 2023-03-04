@@ -4,19 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SignatureFormPageRoutingModule } from './signature-form-routing.module';
+import { LoginPageRoutingModule } from './login-routing.module';
 
-import { SignatureFormPage } from './signature-form.page';
+import { LoginPage } from './login.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SignatureFormPageRoutingModule,
+    LoginPageRoutingModule,
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [SignatureFormPage]
+  declarations: [LoginPage]
 })
-export class SignatureFormPageModule {}
+export class LoginPageModule {}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { SignatureService } from 'src/app/services/signature/signature.service';
+import { UtilService } from 'src/app/services/util/util.service';
 import { SignatureFormPage } from '../signature-form/signature-form.page';
 
 @Component({
@@ -13,7 +14,8 @@ export class SignaturePage implements OnInit {
   constructor(
     public ss: SignatureService,
     public modalController: ModalController,
-    private routerOutlet: IonRouterOutlet
+    private routerOutlet: IonRouterOutlet,
+    public util: UtilService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class SignaturePage implements OnInit {
     });
     formModal.onDidDismiss().then((response: any) => {
       if (response && response.data) {
-
+        this.ss.list().subscribe(() => {});
       }
     });
     return await formModal.present();

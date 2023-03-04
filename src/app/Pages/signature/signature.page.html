@@ -19,11 +19,14 @@
   </ion-header>
 
   <ion-list>
-    <ion-item *ngFor="let signature of ss.signatureList">
+    <ion-item button *ngFor="let signature of ss.signatureList" (click)="util.navWithParams(signature, 'signature-detail/' + signature?.id)">
       <ion-label>
         {{signature?.name}}
         <p>{{signature?.description}}</p>
       </ion-label>
+      <ion-badge [color]="'primary'" slot="end">
+        {{signature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{signature?.price}}
+      </ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>
