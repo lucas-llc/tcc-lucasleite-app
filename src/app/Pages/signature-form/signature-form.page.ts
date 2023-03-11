@@ -47,7 +47,7 @@ export class SignatureFormPage implements OnInit {
           },
           error: () => {
             loading.dismiss();
-            this.util.showToast('Erro ao atualizar assinatura, tente novamente.', 'danger');
+            this.util.showToast('danger', 'Erro ao atualizar assinatura, tente novamente.');
           },
         });
       } else {
@@ -58,7 +58,7 @@ export class SignatureFormPage implements OnInit {
           },
           error: () => {
             loading.dismiss();
-            this.util.showToast('Erro ao salvar assinatura, tente novamente.', 'danger');
+            this.util.showToast('danger', 'Erro ao salvar assinatura, tente novamente.');
           },
         });
       }

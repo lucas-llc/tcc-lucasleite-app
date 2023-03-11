@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment'
 })
 export class SignatureService {
   signatureList: any;
+  empty = false;
   constructor(
     private readonly http: HttpClient,
   ) { }
@@ -19,7 +20,12 @@ export class SignatureService {
 
   list() {
     return this.http.get(environment.url + '/signature').pipe(map((data: any) => {
-      this.signatureList = data.content;
+      this.signatureList = data;
+      if (data?.length > 0) {
+        this.empty = false;
+      } else {
+        this.empty = true;
+      }
       return this.signatureList;
     }));
   }
@@ -38,6 +44,12 @@ export class SignatureService {
 
   delete(id: number) {
     return this.http.delete(environment.url + '/signature/' + id).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
+  getTotals() {
+    return this.http.get(environment.url + '/signature/total').pipe(map((data: any) => {
       return data;
     }));
   }

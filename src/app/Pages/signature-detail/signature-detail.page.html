@@ -15,7 +15,7 @@
     </ion-card-header>
     <ion-card-content>
       <p>
-        {{selectedSignature?.startDate | date:'short':'UTC':'pt-BR'}}
+        {{selectedSignature?.startDate | date:'shortDate':'UTC':'pt-BR'}}
       </p>
       <p>
         {{selectedSignature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{selectedSignature?.price}}

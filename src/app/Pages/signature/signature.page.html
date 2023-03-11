@@ -18,7 +18,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
+  <ion-card *ngIf="!ss?.empty && !loading">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col><h2><strong>Gasto mensal</strong></h2></ion-col>
+          <ion-col><h2><strong>Gasto anual</strong></h2></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>R${{signaturesTotals?.monthlyTotal}}</ion-col>
+          <ion-col>R${{signaturesTotals?.yearlyTotal}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="!ss?.empty && !loading">
     <ion-item button *ngFor="let signature of ss.signatureList" (click)="util.navWithParams(signature, 'signature-detail/' + signature?.id)">
       <ion-label>
         {{signature?.name}}
@@ -29,4 +44,20 @@
       </ion-badge>
     </ion-item>
   </ion-list>
+
+  <ion-list *ngIf="loading">
+    <ion-item *ngFor="let skeleton of util.skeletonList">
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        <p><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-margin empty-container" *ngIf="ss?.empty && !loading">
+    <strong class="capitalize">Assinaturas</strong>
+    <p>Não há assinaturas cadastradas.</p>
+    <ion-button class="ion-margin-top" expand="full" color="primary"
+        (click)="openFormModal()">Cadastrar</ion-button>
+  </div>
 </ion-content>

@@ -10,7 +10,8 @@ import { SignatureFormPage } from '../signature-form/signature-form.page';
   styleUrls: ['signature.page.scss']
 })
 export class SignaturePage implements OnInit {
-
+  loading = false;
+  signaturesTotals: any;
   constructor(
     public ss: SignatureService,
     public modalController: ModalController,
@@ -20,10 +21,30 @@ export class SignaturePage implements OnInit {
 
   ngOnInit(): void {
     this.listSignatures();
+    this.getTotals();
   }
 
   listSignatures() {
-    this.ss.list().subscribe(() => {});
+    this.loading = true;
+    this.ss.list().subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  getTotals() {
+    this.ss.getTotals().subscribe({
+      next: (data) => {
+        this.signaturesTotals = data;
+      },
+      error: () => {
+
+      }
+    })
   }
 
   async openFormModal() {
@@ -34,7 +55,8 @@ export class SignaturePage implements OnInit {
     });
     formModal.onDidDismiss().then((response: any) => {
       if (response && response.data) {
-        this.ss.list().subscribe(() => {});
+        this.listSignatures();
+        this.getTotals();
       }
     });
     return await formModal.present();
