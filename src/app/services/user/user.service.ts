@@ -12,6 +12,12 @@ export class UserService {
     private readonly http: HttpClient,
   ) { }
 
+  getLoggedUser() {
+    return this.http.get(environment.url + '/user/logged').pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
   get(id: any) {
     return this.http.get(environment.url + '/user/' + id).pipe(map((data: any) => {
       return data;
@@ -36,7 +42,4 @@ export class UserService {
     }));
   }
 
-  logout() {
-
-  }
 }

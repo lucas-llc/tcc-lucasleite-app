@@ -9,11 +9,16 @@ import { map } from 'rxjs';
 export class UtilService {
   toast: any;
   loggedUser: any;
+  skeletonList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   constructor(
     private readonly toastController: ToastController,
     public router: Router,
     private route: ActivatedRoute
   ) { }
+
+  setJWT(token: string): any{
+    localStorage.setItem('jwt', token);
+  }
 
   async showToast(style: any, message: any) {
     let cssClass = 'primary';

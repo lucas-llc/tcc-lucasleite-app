@@ -1,8 +1,8 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { TokenInterceptorService } from './services/token/token-interceptor.service';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,8 @@ registerLocaleData(localePt);
     HttpClientModule],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],
 })
