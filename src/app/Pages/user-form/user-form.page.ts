@@ -21,10 +21,10 @@ export class UserFormPage implements OnInit {
     this.userForm = this.formBuilder.group({
       id: [''],
       email: ['', Validators.compose([Validators.required])],
-      name: [''],
-      lastName: [''],
-      password: [''],
-      repeatPassword: ['']
+      name: ['', Validators.compose([Validators.required])],
+      lastName: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+      repeatPassword: ['', Validators.compose([Validators.required])]
     });
   }
 
@@ -33,31 +33,37 @@ export class UserFormPage implements OnInit {
 
   async save() {
     if (this.userForm.valid) {
-      const loading = await this.loadingController.create();
-      await loading.present();
-      if (this.userForm.value.id > 0) {
-        this.us.update(this.userForm.getRawValue()).subscribe({
-          next: () => {
-            loading.dismiss();
-            this.dismissModal(true);
-          },
-          error: () => {
-            loading.dismiss();
-            this.util.showToast('Erro ao atualizar assinatura, tente novamente.', 'danger');
-          },
-        });
+      if (this.userForm.value.password == this.userForm.value.repeatPassword) {
+        const loading = await this.loadingController.create();
+        await loading.present();
+        if (this.userForm.value.id > 0) {
+          this.us.update(this.userForm.getRawValue()).subscribe({
+            next: () => {
+              loading.dismiss();
+              this.dismissModal(true);
+            },
+            error: () => {
+              loading.dismiss();
+              this.util.showToast('danger', 'Erro ao atualizar assinatura, tente novamente.');
+            },
+          });
+        } else {
+          this.us.create(this.userForm.getRawValue()).subscribe({
+            next: () => {
+              loading.dismiss();
+              this.dismissModal(true);
+            },
+            error: () => {
+              loading.dismiss();
+              this.util.showToast('danger', 'Erro ao salvar assinatura, tente novamente.');
+            },
+          });
+        }
       } else {
-        this.us.create(this.userForm.getRawValue()).subscribe({
-          next: () => {
-            loading.dismiss();
-            this.dismissModal(true);
-          },
-          error: () => {
-            loading.dismiss();
-            this.util.showToast('Erro ao salvar assinatura, tente novamente.', 'danger');
-          },
-        });
+        this.util.showToast('danger', 'As senhas devem ser iguais.');
       }
+    } else {
+      this.util.showToast('danger', 'Preencha os campos obrigatórios.');
     }
   }
 

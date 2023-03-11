@@ -19,7 +19,7 @@
   </ion-header>
   <ion-list>
     <div class="profile-item">
-      <h2 class="profile-name dark">{{util.loggedUser?.name}}</h2>
+      <h2 class="profile-name dark">{{util.loggedUser?.name}} {{util.loggedUser?.lastName}}</h2>
       <div class="profile-info">{{util.loggedUser?.email}}</div>
     </div>
   </ion-list>
@@ -29,7 +29,7 @@
     </ion-button>
   </div>
   <div class="ion-text-center ion-margin">
-    <ion-button (click)="us.logout()">
+    <ion-button (click)="logout()">
       Sair
     </ion-button>
   </div>
