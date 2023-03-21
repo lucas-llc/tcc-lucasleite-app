@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
@@ -11,6 +11,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 })
 export class UserFormPage implements OnInit {
   userForm: FormGroup;
+  @Input() user: any;
   constructor(
     public formBuilder: FormBuilder,
     public us: UserService,
@@ -29,39 +30,59 @@ export class UserFormPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.user) {
+      this.userForm.patchValue({
+        id: this.user.id,
+        email: this.user.email,
+        name: this.user.name,
+        lastName: this.user.lastName,
+        password: '',
+        repeatPassword: ''
+      });
+
+      this.userForm.controls['password'].clearValidators();
+      this.userForm.controls['repeatPassword'].clearValidators();
+      this.userForm.updateValueAndValidity();
+    }
   }
 
   async save() {
     if (this.userForm.valid) {
-      if (this.userForm.value.password == this.userForm.value.repeatPassword) {
-        const loading = await this.loadingController.create();
-        await loading.present();
         if (this.userForm.value.id > 0) {
-          this.us.update(this.userForm.getRawValue()).subscribe({
-            next: () => {
-              loading.dismiss();
-              this.dismissModal(true);
-            },
-            error: () => {
-              loading.dismiss();
-              this.util.showToast('danger', 'Erro ao atualizar assinatura, tente novamente.');
-            },
-          });
+          if (!this.userForm.value.password || (this.userForm.value.password && this.userForm.value.password == this.userForm.value.repeatPassword)) {
+            const loading = await this.loadingController.create();
+            await loading.present();
+            this.us.update(this.userForm.getRawValue()).subscribe({
+              next: () => {
+                loading.dismiss();
+                this.dismissModal(true);
+              },
+              error: () => {
+                loading.dismiss();
+                this.util.showToast('danger', 'Erro ao atualizar assinatura, tente novamente.');
+              },
+            });
+          } else {
+            this.util.showToast('danger', 'As senhas devem ser iguais.');
+          }
         } else {
-          this.us.create(this.userForm.getRawValue()).subscribe({
-            next: () => {
-              loading.dismiss();
-              this.dismissModal(true);
-            },
-            error: () => {
-              loading.dismiss();
-              this.util.showToast('danger', 'Erro ao salvar assinatura, tente novamente.');
-            },
-          });
+          if (this.userForm.value.password == this.userForm.value.repeatPassword) {
+            const loading = await this.loadingController.create();
+            await loading.present();
+            this.us.create(this.userForm.getRawValue()).subscribe({
+              next: () => {
+                loading.dismiss();
+                this.dismissModal(true);
+              },
+              error: () => {
+                loading.dismiss();
+                this.util.showToast('danger', 'Erro ao salvar assinatura, tente novamente.');
+              },
+            });
+          } else {
+            this.util.showToast('danger', 'As senhas devem ser iguais.');
+          }
         }
-      } else {
-        this.util.showToast('danger', 'As senhas devem ser iguais.');
-      }
     } else {
       this.util.showToast('danger', 'Preencha os campos obrigatórios.');
     }

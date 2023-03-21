@@ -4,7 +4,7 @@
       Perfil
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="showActionSheet()">
+      <ion-button (click)="showForm()">
         <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,11 +23,6 @@
       <div class="profile-info">{{util.loggedUser?.email}}</div>
     </div>
   </ion-list>
-  <div class="ion-text-center">
-    <ion-button size="small" fill="clear" type="button" (click)="util.navWithParams(null, 'about')">
-      Sobre
-    </ion-button>
-  </div>
   <div class="ion-text-center ion-margin">
     <ion-button (click)="logout()">
       Sair
