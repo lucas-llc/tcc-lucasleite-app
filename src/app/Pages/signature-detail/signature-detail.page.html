@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="/tabs/signature"></ion-back-button>
     </ion-buttons>
     <ion-title>Detalhe da assinatura</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,13 +17,14 @@
     <ion-card-header>
       <ion-card-subtitle>Assinatura</ion-card-subtitle>
       <ion-card-title>{{selectedSignature?.name}}</ion-card-title>
+      <p><ion-badge [color]="selectedSignature?.status === 'ATIVO' ? 'success' : 'danger'">{{selectedSignature?.status | titlecase}}</ion-badge></p>
     </ion-card-header>
     <ion-card-content>
       <p>
-        {{selectedSignature?.startDate | date:'shortDate':'UTC':'pt-BR'}}
+        Primeiro pagamento: {{selectedSignature?.startDate | date:'shortDate':'UTC':'pt-BR'}}
       </p>
       <p>
-        {{selectedSignature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{selectedSignature?.price}}
+        {{selectedSignature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{selectedSignature?.price}} / {{selectedSignature?.frequency | lowercase}}
       </p>
       {{selectedSignature?.description}}
     </ion-card-content>

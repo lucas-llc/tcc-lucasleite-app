@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SignatureService } from 'src/app/services/signature/signature.service';
@@ -11,6 +11,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 })
 export class SignatureFormPage implements OnInit {
   signatureForm: FormGroup;
+  @Input() selectedSignature: any;
   constructor(
     public modalController: ModalController,
     public formBuilder: FormBuilder,
@@ -33,6 +34,18 @@ export class SignatureFormPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.selectedSignature) {
+      this.signatureForm.patchValue({
+        id: this.selectedSignature.id,
+        name: this.selectedSignature.name,
+        description: this.selectedSignature.description ? this.selectedSignature.description : '',
+        price: this.selectedSignature.price,
+        startDate: this.util.formatDateString(this.selectedSignature.startDate, false),
+        frequency: this.selectedSignature.frequency,
+        status: this.selectedSignature.status,
+        sendPush: this.selectedSignature.sendPush
+      });
+    }
   }
 
   async save() {
@@ -43,6 +56,7 @@ export class SignatureFormPage implements OnInit {
         this.ss.update(this.signatureForm.getRawValue()).subscribe({
           next: () => {
             loading.dismiss();
+            this.util.showToast('success', 'Assinatura atualizada com sucesso!');
             this.dismissModal(true);
           },
           error: () => {
@@ -54,6 +68,7 @@ export class SignatureFormPage implements OnInit {
         this.ss.create(this.signatureForm.getRawValue()).subscribe({
           next: () => {
             loading.dismiss();
+            this.util.showToast('success', 'Assinatura criada com sucesso!');
             this.dismissModal(true);
           },
           error: () => {

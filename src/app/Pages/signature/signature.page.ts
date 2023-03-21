@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IonRouterOutlet, ModalController } from '@ionic/angular';
+import { IonRouterOutlet, ModalController, PopoverController } from '@ionic/angular';
 import { SignatureService } from 'src/app/services/signature/signature.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { SignatureFormPage } from '../signature-form/signature-form.page';
+import { SignaturePopoverPage } from '../signature-popover/signature-popover.page';
 
 @Component({
   selector: 'app-signature',
@@ -11,12 +12,12 @@ import { SignatureFormPage } from '../signature-form/signature-form.page';
 })
 export class SignaturePage implements OnInit {
   loading = false;
-  signaturesTotals: any;
   constructor(
     public ss: SignatureService,
     public modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
-    public util: UtilService
+    public util: UtilService,
+    public popoverController: PopoverController
   ) {}
 
   ngOnInit(): void {
@@ -38,8 +39,8 @@ export class SignaturePage implements OnInit {
 
   getTotals() {
     this.ss.getTotals().subscribe({
-      next: (data) => {
-        this.signaturesTotals = data;
+      next: () => {
+
       },
       error: () => {
 
@@ -60,5 +61,14 @@ export class SignaturePage implements OnInit {
       }
     });
     return await formModal.present();
+  }
+
+  async presentPopover(event: any) {
+    const popover = await this.popoverController.create({
+      component: SignaturePopoverPage,
+      event,
+      translucent: true
+    });
+    return await popover.present();
   }
 }

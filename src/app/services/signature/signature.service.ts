@@ -7,7 +7,10 @@ import { environment } from 'src/environments/environment'
 })
 export class SignatureService {
   signatureList: any;
+  signaturesTotals: any;
+  signatureCount: any;
   empty = false;
+  selectedStatus = "ATIVO";
   constructor(
     private readonly http: HttpClient,
   ) { }
@@ -18,9 +21,11 @@ export class SignatureService {
     }));
   }
 
-  list() {
-    return this.http.get(environment.url + '/signature').pipe(map((data: any) => {
+  list(status?: String) {
+    let statusString = status ? status : '';
+    return this.http.get(environment.url + '/signature?status=' + statusString).pipe(map((data: any) => {
       this.signatureList = data;
+      this.signatureCount = this.signatureList ? this.signatureList.length : 0;
       if (data?.length > 0) {
         this.empty = false;
       } else {
@@ -50,6 +55,19 @@ export class SignatureService {
 
   getTotals() {
     return this.http.get(environment.url + '/signature/total').pipe(map((data: any) => {
+      this.signaturesTotals = data;
+      return data;
+    }));
+  }
+
+  getCalendar() {
+    return this.http.get(environment.url + '/signature/calendar').pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
+  changeStatus(id: number) {
+    return this.http.put(environment.url + '/signature/changeStatus/' + id, null).pipe(map((data: any) => {
       return data;
     }));
   }

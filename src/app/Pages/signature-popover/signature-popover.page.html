@@ -1,0 +1,18 @@
+<ion-list>
+  <ion-item lines="full">
+    <ion-label><h3>Filtrar por</h3></ion-label>
+  </ion-item>
+  <ion-radio-group [value]="ss.selectedStatus">
+    <ion-item-divider>
+      <ion-label>Status</ion-label>
+    </ion-item-divider>
+    <ion-item lines="full">
+      <ion-label class="ion-text-wrap"><h3>Ativos</h3></ion-label>
+      <ion-radio slot="end" [value]="'ATIVO'" (ionFocus)="onStatusFocus('ATIVO')"></ion-radio>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="ion-text-wrap"><h3>Inativos</h3></ion-label>
+      <ion-radio slot="end" [value]="'INATIVO'" (ionFocus)="onStatusFocus('INATIVO')"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>

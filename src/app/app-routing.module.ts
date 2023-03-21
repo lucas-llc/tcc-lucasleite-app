@@ -33,7 +33,11 @@ const routes: Routes = [
   {
     path: 'forgot',
     loadChildren: () => import('./Pages/forgot/forgot.module').then( m => m.ForgotPageModule)
+  },  {
+    path: 'signature-popover',
+    loadChildren: () => import('./Pages/signature-popover/signature-popover.module').then( m => m.SignaturePopoverPageModule)
   }
+
 
 ];
 @NgModule({

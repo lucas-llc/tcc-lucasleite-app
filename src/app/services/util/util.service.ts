@@ -48,4 +48,17 @@ export class UtilService {
       }
     }));
   }
+
+  formatDateString(date: Date, dayFirst: boolean) {
+    date = date ? new Date(date) : new Date();
+    if (!dayFirst) {
+      return date.toISOString().substr(0,10);
+    } else {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const strDayFirst = day + '-' + (month.toString.length > 1 ? month : ('0' + month)) + '-' + year;
+      return strDayFirst;
+    }
+  }
 }

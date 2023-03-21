@@ -4,6 +4,9 @@
       Assinaturas
     </ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)" [disabled]="loading">
+        <ion-icon slot="icon-only" name="options-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="openFormModal()">
         <ion-icon slot="icon-only" name="create-outline"></ion-icon>
       </ion-button>
@@ -21,13 +24,16 @@
   <ion-card *ngIf="!ss?.empty && !loading">
     <ion-card-content>
       <ion-grid>
-        <ion-row>
+        <ion-row  *ngIf="ss.selectedStatus == 'ATIVO'">
           <ion-col><h2><strong>Gasto mensal</strong></h2></ion-col>
           <ion-col><h2><strong>Gasto anual</strong></h2></ion-col>
         </ion-row>
+        <ion-row  *ngIf="ss.selectedStatus == 'ATIVO'">
+          <ion-col>R${{ss.signaturesTotals?.monthlyTotal}}</ion-col>
+          <ion-col>R${{ss.signaturesTotals?.yearlyTotal}}</ion-col>
+        </ion-row>
         <ion-row>
-          <ion-col>R${{signaturesTotals?.monthlyTotal}}</ion-col>
-          <ion-col>R${{signaturesTotals?.yearlyTotal}}</ion-col>
+          <ion-col><p>{{ss.selectedStatus == 'ATIVO' ? 'Assinaturas ativas' : 'Assinaturas inativas'}}: {{ss.signatureCount}}</p></ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
@@ -56,8 +62,9 @@
 
   <div class="ion-margin empty-container" *ngIf="ss?.empty && !loading">
     <strong class="capitalize">Assinaturas</strong>
-    <p>Não há assinaturas cadastradas.</p>
-    <ion-button class="ion-margin-top" expand="full" color="primary"
+    <p *ngIf="ss.selectedStatus == 'ATIVO'">Não há assinaturas ativas cadastradas.</p>
+    <p *ngIf="ss.selectedStatus == 'INATIVO'">Não há assinaturas inativas cadastradas.</p>
+    <ion-button *ngIf="ss.selectedStatus == 'ATIVO'" class="ion-margin-top" expand="full" color="primary"
         (click)="openFormModal()">Cadastrar</ion-button>
   </div>
 </ion-content>
