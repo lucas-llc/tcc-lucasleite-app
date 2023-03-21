@@ -13,5 +13,29 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-list *ngIf="!empty && !loading">
+    <ion-item button *ngFor="let signature of signatureMonthList">
+      <ion-label>
+        {{signature?.name}}
+        <p>{{signature?.description}}</p>
+      </ion-label>
+      <ion-badge [color]="'primary'" slot="end">
+        {{signature?.nextPaymentDate | date:'shortDate':'UTC':'pt-BR'}}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
 
+  <ion-list *ngIf="loading">
+    <ion-item *ngFor="let skeleton of util.skeletonList">
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        <p><ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="ion-margin empty-container" *ngIf="empty && !loading">
+    <strong class="capitalize">Agenda</strong>
+    <p>Não há pagamentos previstos para esse mês.</p>
+  </div>
 </ion-content>
