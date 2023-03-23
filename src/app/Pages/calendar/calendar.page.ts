@@ -10,11 +10,15 @@ import { UtilService } from 'src/app/services/util/util.service';
 export class CalendarPage implements OnInit {
   loading = false;
   signatureMonthList: any;
+  selectedMonth: any;
   empty = false;
+  today = new Date();
   constructor(
     public ss: SignatureService,
     public util: UtilService
-  ) {}
+  ) {
+    this.selectedMonth = String(this.today.getMonth());
+  }
 
   ngOnInit(): void {
     this.getCalendar();
@@ -22,7 +26,7 @@ export class CalendarPage implements OnInit {
 
   getCalendar() {
     this.loading = true;
-    this.ss.getCalendar().subscribe({
+    this.ss.getCalendar(this.selectedMonth).subscribe({
       next: (data) => {
         this.signatureMonthList = data;
         if (this.signatureMonthList?.length > 0) {
@@ -36,5 +40,9 @@ export class CalendarPage implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  changeFilter() {
+    this.getCalendar();
   }
 }

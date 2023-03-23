@@ -13,14 +13,38 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-label>Mês</ion-label>
+      <ion-select placeholder="Selecione" [(ngModel)]="selectedMonth"
+        (ionChange)="changeFilter()" interface="action-sheet" [cancelText]="'Cancelar'">
+        <ion-select-option value="0">Janeiro</ion-select-option>
+        <ion-select-option value="1">Fevereiro</ion-select-option>
+        <ion-select-option value="2">Março</ion-select-option>
+        <ion-select-option value="3">Abril</ion-select-option>
+        <ion-select-option value="4">Maio</ion-select-option>
+        <ion-select-option value="5">Junho</ion-select-option>
+        <ion-select-option value="6">Julho</ion-select-option>
+        <ion-select-option value="7">Agosto</ion-select-option>
+        <ion-select-option value="8">Setembro</ion-select-option>
+        <ion-select-option value="9">Outubro</ion-select-option>
+        <ion-select-option value="10">Novembro</ion-select-option>
+        <ion-select-option value="11">Dezembro</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+
   <ion-list *ngIf="!empty && !loading">
     <ion-item button *ngFor="let signature of signatureMonthList">
       <ion-label>
         {{signature?.name}}
         <p>{{signature?.description}}</p>
       </ion-label>
-      <ion-badge [color]="'primary'" slot="end">
-        {{signature?.nextPaymentDate | date:'shortDate':'UTC':'pt-BR'}}
+      <ion-badge class="event-date ion-text-center" slot="end">
+        <h5 class="ion-no-margin">
+          {{signature?.nextPaymentDate | date:'dd':'UTC':'pt-BR'}}</h5>
+        <p class="ion-no-margin">
+          {{signature?.nextPaymentDate | date:'MMM':'UTC':'pt-BR'}}</p>
       </ion-badge>
     </ion-item>
   </ion-list>
