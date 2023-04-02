@@ -29,4 +29,17 @@
       {{selectedSignature?.description}}
     </ion-card-content>
   </ion-card>
+
+  <ion-list *ngIf="selectedSignature?.keywords?.length > 0">
+    <ion-list-header lines="inset">
+      <ion-label>
+        Categorias
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-badge class="m-10" button color="primary" *ngFor="let keyword of selectedSignature?.keywords">
+        {{keyword?.name}}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
 </ion-content>

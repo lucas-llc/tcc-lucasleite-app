@@ -1,34 +1,33 @@
 <ion-content>
   <div id="container">
-    <div class="logo">
-      <img src="assets/img/logo.png">
+    <div class="m-t-200">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-list>
+          <ion-item color="light">
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input formControlName="email" required></ion-input>
+          </ion-item>
+          <ion-item color="light">
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input type="password" formControlName="password" required></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-row class="ion-margin">
+          <ion-col>
+            <ion-button type="submit" color="light" expand="full">Login</ion-button>
+          </ion-col>
+        </ion-row>
+        <div class="ion-text-center">
+          <ion-button size="small" fill="clear" type="button" (click)="forgot()">
+            Esqueci a senha
+          </ion-button>
+        </div>
+        <div class="ion-text-center">
+          <ion-button size="small" fill="clear" type="button" (click)="showForm()">
+            Cadastre-se
+          </ion-button>
+        </div>
+      </form>
     </div>
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <ion-list>
-        <ion-item color="light">
-          <ion-label position="floating">E-mail</ion-label>
-          <ion-input formControlName="email" required></ion-input>
-        </ion-item>
-        <ion-item color="light">
-          <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" formControlName="password" required></ion-input>
-        </ion-item>
-      </ion-list>
-      <ion-row class="ion-margin">
-        <ion-col>
-          <ion-button type="submit" color="light" expand="full">Login</ion-button>
-        </ion-col>
-      </ion-row>
-      <div class="ion-text-center">
-        <ion-button size="small" fill="clear" type="button">
-          Esqueci a senha
-        </ion-button>
-      </div>
-      <div class="ion-text-center">
-        <ion-button size="small" fill="clear" type="button" (click)="showForm()">
-          Cadastre-se
-        </ion-button>
-      </div>
-    </form>
   </div>
 </ion-content>

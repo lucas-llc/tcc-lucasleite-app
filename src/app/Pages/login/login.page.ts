@@ -4,6 +4,7 @@ import { IonRouterOutlet, LoadingController, ModalController, NavController } fr
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { UserFormPage } from '../user-form/user-form.page';
+import { ForgotPage } from '../forgot/forgot.page';
 
 @Component({
   selector: 'app-login',
@@ -61,6 +62,15 @@ export class LoginPage implements OnInit {
       if (response && response.data) {
 
       }
+    });
+    return await formModal.present();
+  }
+
+  async forgot() {
+    const formModal = await this.modalController.create({
+      component: ForgotPage,
+      swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl
     });
     return await formModal.present();
   }

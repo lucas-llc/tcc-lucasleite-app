@@ -47,6 +47,7 @@
       </ion-label>
       <ion-badge [color]="'primary'" slot="end">
         {{signature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{signature?.price}}
+        - {{signature?.frequency | lowercase}}
       </ion-badge>
     </ion-item>
   </ion-list>

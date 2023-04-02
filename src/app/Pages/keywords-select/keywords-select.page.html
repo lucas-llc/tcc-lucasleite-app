@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        Fechar
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Categorias
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        Salvar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  >
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        Criar Nova Categoria
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-button  slot="end" [disabled]="!newName || loading" (click)="createNewKeyword()">Adicionar</ion-button>
+      <ion-input [(ngModel)]="newName" placeholder="Digite..." type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="keywords?.length">
+    <ion-list-header>
+      <ion-label>
+        Selecione
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let option of keywords" text-wrap>
+      <ion-label>{{option?.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="option.checked" (ionChange)="onChangeTag(option)" checked="option.checked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SignatureService } from 'src/app/services/signature/signature.service';
 import { UtilService } from 'src/app/services/util/util.service';
+import { KeywordsSelectPage } from '../keywords-select/keywords-select.page';
 
 @Component({
   selector: 'app-signature-form',
@@ -29,7 +30,8 @@ export class SignatureFormPage implements OnInit {
       status: ['ATIVO'],
       sendPush: [false],
       currency: [''],
-      iconImage: ['']
+      iconImage: [''],
+      keywords: [[]]
     });
   }
 
@@ -43,7 +45,8 @@ export class SignatureFormPage implements OnInit {
         startDate: this.util.formatDateString(this.selectedSignature.startDate, false),
         frequency: this.selectedSignature.frequency,
         status: this.selectedSignature.status,
-        sendPush: this.selectedSignature.sendPush
+        sendPush: this.selectedSignature.sendPush,
+        keywords: this.selectedSignature.keywords ? this.selectedSignature.keywords : []
       });
     }
   }
@@ -78,6 +81,20 @@ export class SignatureFormPage implements OnInit {
         });
       }
     }
+  }
+
+  async addKeyword() {
+    const keywordsModal = await this.modalController.create({ component: KeywordsSelectPage, componentProps: {currentKeywords: this.signatureForm.value.keywords }, presentingElement: await this.modalController.getTop() });
+    keywordsModal.onDidDismiss().then((response: any) => {
+      if (response && response.data) {
+
+      }
+    });
+    return await keywordsModal.present();
+  }
+
+  deleteKeyword() {
+
   }
 
   dismissModal(reload = false) {

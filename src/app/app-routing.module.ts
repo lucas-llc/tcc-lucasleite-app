@@ -36,6 +36,14 @@ const routes: Routes = [
   },  {
     path: 'signature-popover',
     loadChildren: () => import('./Pages/signature-popover/signature-popover.module').then( m => m.SignaturePopoverPageModule)
+  },
+  {
+    path: 'keywords-select',
+    loadChildren: () => import('./Pages/keywords-select/keywords-select.module').then( m => m.KeywordsSelectPageModule)
+  },
+  {
+    path: 'chat',
+    loadChildren: () => import('./Pages/chat/chat.module').then( m => m.ChatPageModule)
   }
 
 
