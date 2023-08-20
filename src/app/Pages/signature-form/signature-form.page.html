@@ -26,11 +26,11 @@
         <ion-input formControlName="description"></ion-input>
       </ion-item>
       <ion-item color="light">
-        <ion-label position="floating">Preço</ion-label>
+        <ion-label position="floating">Preço<ion-text color="danger">&nbsp;*</ion-text></ion-label>
         <ion-input type="number" formControlName="price"></ion-input>
       </ion-item>
       <ion-item button="true" id="open-date-input" lines="full" detail="false" color="light">
-        <ion-label position="stacked">Data do primeiro pagamento</ion-label>
+        <ion-label position="stacked">Data do primeiro pagamento<ion-text color="danger">&nbsp;*</ion-text></ion-label>
         <h6 *ngIf="signatureForm?.value?.startDate">{{signatureForm.value?.startDate | date:'shortDate':'UTC': 'pt-BR'}}</h6>
         <ion-note *ngIf="!signatureForm?.value?.startDate">Selecione</ion-note>
         <ion-popover #popover trigger="open-date-input" [size]="'cover'" >
@@ -45,7 +45,7 @@
         </ion-popover>
       </ion-item>
       <ion-item color="light">
-        <ion-label position="floating">Frequência</ion-label>
+        <ion-label position="floating">Frequência<ion-text color="danger">&nbsp;*</ion-text></ion-label>
         <ion-select placeholder="Selecione a frequência de pagamento" formControlName="frequency">
           <ion-select-option value="MENSAL">Mensal</ion-select-option>
           <ion-select-option value="BIMESTRAL">Bimestral</ion-select-option>

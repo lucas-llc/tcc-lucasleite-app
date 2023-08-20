@@ -8,5 +8,73 @@
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="forgotForm" (ngSubmit)="checkEmail()" *ngIf="!hasCheckedEmail">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Informe seu e-mail</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-button color="primary" class="ion-margin" type="submit" expand="full">
+        Pesquisar
+      </ion-button>
+    </ion-list>
+  </form>
 
+  <form [formGroup]="verificationForm" (ngSubmit)="confirmCode()" *ngIf="hasCheckedEmail && !hasConfirmedCode">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Insira o código que foi enviado para o seu e-mail</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label position="stacked">Código de Verificação</ion-label>
+        <ion-input type="text" formControlName="code" placeholder="Digite aqui"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          Prazo de Expiração do Código: {{countDown | async}}
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap">
+          <ion-text>
+            <p>Digite o código de validação recebido por e-mail. O código expira em 10 minutos.
+              Passado esse tempo, um novo código deve ser solicitado.</p>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list inset>
+      <ion-button slot="end" expand="full" color="primary" type="submit" *ngIf="count != 0">
+        Confirmar Código
+      </ion-button>
+      <ion-button slot="end" expand="full" color="primary" (click)="dismiss()" *ngIf="count == 0">
+        Solicitar Novo Código
+      </ion-button>
+    </ion-list>
+  </form>
+
+  <form [formGroup]="userForm" *ngIf="hasConfirmedCode">
+    <ion-list-header>
+      <ion-label>Insira sua nova senha</ion-label>
+    </ion-list-header>
+    <ion-list>
+      <ion-item color="light">
+        <ion-label position="floating">Nova Senha<ion-text color="danger">&nbsp;*</ion-text></ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item color="light">
+        <ion-label position="floating">Confirme a nova senha<ion-text color="danger">&nbsp;*</ion-text></ion-label>
+        <ion-input type="password" formControlName="repeatPassword"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list inset>
+      <ion-button slot="end" color="primary" type="submit" expand="full"
+        [disabled]="userForm.value.password === '' || userForm.value.passwordConfirm === ''">
+        Salvar
+      </ion-button>
+    </ion-list>
+  </form>
 </ion-content>

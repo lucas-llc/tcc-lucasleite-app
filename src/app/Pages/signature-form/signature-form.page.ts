@@ -24,9 +24,9 @@ export class SignatureFormPage implements OnInit {
       id: [''],
       name: ['', Validators.compose([Validators.required])],
       description: [''],
-      price: [0],
-      startDate: [null],
-      frequency: [''],
+      price: [0, Validators.compose([Validators.required])],
+      startDate: [null, Validators.compose([Validators.required])],
+      frequency: ['', Validators.compose([Validators.required])],
       status: ['ATIVO'],
       sendPush: [false],
       currency: [''],
@@ -80,6 +80,8 @@ export class SignatureFormPage implements OnInit {
           },
         });
       }
+    } else {
+      this.util.showToast('danger', 'Preencha os campos obrigatórios');
     }
   }
 

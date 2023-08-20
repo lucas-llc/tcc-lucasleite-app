@@ -42,4 +42,10 @@ export class UserService {
     }));
   }
 
+  checkUserEmail(email: string) {
+    return this.http.get(environment.url + '/user/email/' + email).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
 }
