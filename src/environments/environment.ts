@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://127.0.0.1:8080',
-  OPENAI_API_KEY: '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'
+  url: 'http://127.0.0.1:8080'
 };
 
 /*

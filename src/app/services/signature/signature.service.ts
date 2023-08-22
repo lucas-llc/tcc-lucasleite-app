@@ -71,4 +71,10 @@ export class SignatureService {
       return data;
     }));
   }
+
+  getTotalSpent(id: any) {
+    return this.http.get(environment.url + '/signature/spent/' + id).pipe(map((data: any) => {
+      return data;
+    }));
+  }
 }

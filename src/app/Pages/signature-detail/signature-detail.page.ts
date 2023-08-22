@@ -13,6 +13,7 @@ import { SignatureFormPage } from '../signature-form/signature-form.page';
 export class SignatureDetailPage implements OnInit {
   loading = true;
   selectedSignature: any;
+  totalSpent: any;
   constructor(
     public util: UtilService,
     public route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class SignatureDetailPage implements OnInit {
       } else {
         this.selectedSignature = { id: this.route.snapshot.paramMap.get('id') };
       }
+      this.getTotalSpentSignature();
     });
   }
 
@@ -39,6 +41,14 @@ export class SignatureDetailPage implements OnInit {
     this.ss.get(this.selectedSignature.id).subscribe({
       next: (data) => {
         this.selectedSignature = data;
+      }
+    })
+  }
+
+  getTotalSpentSignature() {
+    this.ss.getTotalSpent(this.selectedSignature.id).subscribe({
+      next: (data) => {
+        this.totalSpent = data;
       }
     })
   }
