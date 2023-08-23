@@ -4,6 +4,7 @@ import { ActionSheetController, AlertController, IonRouterOutlet, LoadingControl
 import { SignatureService } from 'src/app/services/signature/signature.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { SignatureFormPage } from '../signature-form/signature-form.page';
+import { KeywordsService } from 'src/app/services/keywords/keywords.service';
 
 @Component({
   selector: 'app-signature-detail',
@@ -22,7 +23,8 @@ export class SignatureDetailPage implements OnInit {
     private routerOutlet: IonRouterOutlet,
     public ss: SignatureService,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private ks: KeywordsService
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class SignatureDetailPage implements OnInit {
         this.getSignature();
         this.ss.getTotals().subscribe();
         this.ss.list().subscribe();
+        this.ks.listKeywords().subscribe();
       }
     });
     return await formModal.present();

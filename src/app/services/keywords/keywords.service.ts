@@ -7,13 +7,20 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class KeywordsService {
-
+  categories: any = [];
+  empty = false;
   constructor(
     private readonly http: HttpClient
   ) { }
 
   listKeywords() {
     return this.http.get(environment.url + '/keywords').pipe(map((data: any) => {
+      if (data?.length > 0) {
+        this.empty = false;
+      } else {
+        this.empty = true;
+      }
+      this.categories = data;
       return data;
     }));
   }

@@ -4,6 +4,7 @@ import { SignatureService } from 'src/app/services/signature/signature.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { SignatureFormPage } from '../signature-form/signature-form.page';
 import { SignaturePopoverPage } from '../signature-popover/signature-popover.page';
+import { KeywordsService } from 'src/app/services/keywords/keywords.service';
 
 @Component({
   selector: 'app-signature',
@@ -14,6 +15,7 @@ export class SignaturePage implements OnInit {
   loading = false;
   constructor(
     public ss: SignatureService,
+    public ks: KeywordsService,
     public modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
     public util: UtilService,
@@ -58,6 +60,7 @@ export class SignaturePage implements OnInit {
       if (response && response.data) {
         this.listSignatures();
         this.getTotals();
+        this.ks.listKeywords().subscribe();
       }
     });
     return await formModal.present();

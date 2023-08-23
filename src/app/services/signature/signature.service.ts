@@ -77,4 +77,16 @@ export class SignatureService {
       return data;
     }));
   }
+
+  listByCategory(categoryId: Number) {
+    return this.http.get(environment.url + '/signature/list/byCategory/' + categoryId).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
+  getTotalsByCategory(categoryId: Number) {
+    return this.http.get(environment.url + '/signature/total/byCategory/' + categoryId).pipe(map((data: any) => {
+      return data;
+    }));
+  }
 }

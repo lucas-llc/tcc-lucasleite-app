@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/category"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhe da categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Categoria</ion-card-subtitle>
+      <ion-card-title>{{selectedCategory?.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col><h2><strong>Gasto mensal</strong></h2></ion-col>
+          <ion-col><h2><strong>Gasto anual</strong></h2></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>R${{signaturesTotals?.monthlyTotal}}</ion-col>
+          <ion-col>R${{signaturesTotals?.yearlyTotal}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-list *ngIf="signatureList?.length > 0 && !loading">
+    <ion-list-header>
+      <ion-label>
+        Assinaturas
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let signature of signatureList">
+      <ion-label>
+        {{signature?.name}}
+        <p>{{signature?.description}}</p>
+      </ion-label>
+      <ion-badge [color]="'primary'" slot="end">
+        {{signature?.currency == 'DOLAR' ? ('$') : ('R$')}} {{signature?.price}}
+        - {{signature?.frequency | lowercase}}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -45,7 +45,12 @@ const routes: Routes = [
   {
     path: 'category',
     loadChildren: () => import('./Pages/category/category.module').then( m => m.CategoryPageModule)
+  },
+  {
+    path: 'category-detail/:id',
+    loadChildren: () => import('./Pages/category-detail/category-detail.module').then( m => m.CategoryDetailPageModule)
   }
+
 
 
 ];
