@@ -43,20 +43,22 @@ export class KeywordsSelectPage implements OnInit {
     const obj = {
       name: this.newName
     }
-    this.ks.create(obj).subscribe({
-      next: (data: any) => {
-        data.checked = true;
-        this.keywords.unshift(data);
-        if (!this.isInList(data)) {
-          this.currentKeywords.push(data);
+    if(!this.existKey(obj)){
+      this.ks.create(obj).subscribe({
+        next: (data: any) => {
+          data.checked = true;
+          this.keywords.unshift(data);
+          if (!this.isInList(data)) {
+            this.currentKeywords.push(data);
+          }
+          this.newName = '';
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
         }
-        this.newName = '';
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+      });
+    }
   }
 
   onChangeTag(tag: any) {
@@ -82,6 +84,16 @@ export class KeywordsSelectPage implements OnInit {
         if (tag.id === keyword.id) {
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  existKey(tag: any) {
+    for (const keyword of this.keywords) {
+      if (tag.name === keyword.name) {
+        keyword.checked = true;
+        return true;
       }
     }
     return false;
