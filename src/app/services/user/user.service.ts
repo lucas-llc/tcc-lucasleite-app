@@ -36,14 +36,14 @@ export class UserService {
     }));
   }
 
-  delete(id: number) {
-    return this.http.delete(environment.url + '/user/' + id).pipe(map((data: any) => {
+  checkUserEmail(email: string) {
+    return this.http.get(environment.url + '/user/email/' + email).pipe(map((data: any) => {
       return data;
     }));
   }
 
-  checkUserEmail(email: string) {
-    return this.http.get(environment.url + '/user/email/' + email).pipe(map((data: any) => {
+  sendForgotCode(email: string) {
+    return this.http.get(environment.url + '/user/send/forgot/' + email).pipe(map((data: any) => {
       return data;
     }));
   }

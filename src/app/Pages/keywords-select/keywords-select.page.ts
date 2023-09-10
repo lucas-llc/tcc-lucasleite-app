@@ -22,7 +22,7 @@ export class KeywordsSelectPage implements OnInit {
   }
 
   listKeywords() {
-    this.ks.listKeywords().subscribe((data: any) => {
+    this.ks.listKeywordsAll().subscribe((data: any) => {
       if (data && data.length > 0) {
         for (const current of this.currentKeywords) {
           for (const key of data) {

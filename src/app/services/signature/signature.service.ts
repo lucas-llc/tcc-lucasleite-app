@@ -60,8 +60,14 @@ export class SignatureService {
     }));
   }
 
-  getCalendar(month: string) {
-    return this.http.get(environment.url + '/signature/calendar?month=' + month).pipe(map((data: any) => {
+  getCalendar(month: string, year: string) {
+    return this.http.get(environment.url + '/signature/calendar?month=' + month + '&year=' + year).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
+  getFirstPayment() {
+    return this.http.get(environment.url + '/signature/firstPayment').pipe(map((data: any) => {
       return data;
     }));
   }

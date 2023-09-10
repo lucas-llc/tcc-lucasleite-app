@@ -115,6 +115,7 @@ export class SignatureDetailPage implements OnInit {
         loading.dismiss();
         this.ss.getTotals().subscribe();
         this.ss.list().subscribe();
+        this.ks.listKeywords().subscribe();
         this.util.navWithParams(null, 'tabs')
         this.util.showToast('success', 'Assinatura excluída com sucesso!');
       },
@@ -133,6 +134,7 @@ export class SignatureDetailPage implements OnInit {
         this.getSignature();
         this.ss.getTotals().subscribe();
         this.ss.list().subscribe();
+        this.ks.listKeywords().subscribe();
         this.util.showToast('success', 'Assinatura atualizada com sucesso!');
       },
       error: () => {

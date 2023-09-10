@@ -55,13 +55,21 @@ export class ForgotPage implements OnInit {
         next: (data: boolean) => {
           loading.dismiss();
           if (data == true) {
-            this.hasCheckedEmail = true
+            this.us.sendForgotCode(this.forgotForm.value.email).subscribe({
+              next: () => {
+                this.hasCheckedEmail = true
+              },
+              error: () => {
+                this.util.showToast('danger', 'E-mail não encontrado');
+              }
+            });
           } else {
             this.util.showToast('danger', 'E-mail não encontrado');
           }
         },
         error: () => {
           loading.dismiss();
+          this.util.showToast('danger', 'E-mail não encontrado');
         }
       })
     } else {

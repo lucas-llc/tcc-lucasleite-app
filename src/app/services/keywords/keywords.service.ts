@@ -25,6 +25,12 @@ export class KeywordsService {
     }));
   }
 
+  listKeywordsAll() {
+    return this.http.get(environment.url + '/keywords/all').pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
   create(obj: any) {
     return this.http.post(environment.url + '/keywords', obj).pipe(map((data: any) => {
       return data;
