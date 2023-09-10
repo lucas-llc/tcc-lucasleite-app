@@ -56,7 +56,7 @@
     </ion-list>
   </form>
 
-  <form [formGroup]="userForm" *ngIf="hasConfirmedCode">
+  <form [formGroup]="userForm" (ngSubmit)="save()" *ngIf="hasConfirmedCode">
     <ion-list-header>
       <ion-label>Insira sua nova senha</ion-label>
     </ion-list-header>

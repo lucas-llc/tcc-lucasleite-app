@@ -48,4 +48,16 @@ export class UserService {
     }));
   }
 
+  confirmCode(email: string, code: string) {
+    return this.http.get(environment.url + `/user/confirm/forgot/${email}/${code}`).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
+  updatePassword(obj: any) {
+    return this.http.put(environment.url + '/user/password', obj).pipe(map((data: any) => {
+      return data;
+    }));
+  }
+
 }

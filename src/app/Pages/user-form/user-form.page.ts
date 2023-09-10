@@ -59,7 +59,7 @@ export class UserFormPage implements OnInit {
               },
               error: () => {
                 loading.dismiss();
-                this.util.showToast('danger', 'Erro ao atualizar assinatura, tente novamente.');
+                this.util.showToast('danger', 'Erro ao atualizar, tente novamente.');
               },
             });
           } else {
@@ -76,7 +76,7 @@ export class UserFormPage implements OnInit {
               },
               error: () => {
                 loading.dismiss();
-                this.util.showToast('danger', 'Erro ao salvar assinatura, tente novamente.');
+                this.util.showToast('danger', 'Erro ao salvar, tente novamente.');
               },
             });
           } else {
